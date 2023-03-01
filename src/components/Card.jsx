@@ -4,12 +4,15 @@ import UpdateTodoForm from "./UpdateTodoForm";
 import SingleTodoCard from "./SingleTodoCard";
 
 import { useSelector, useDispatch } from "react-redux";
+import { deleteAllTodos } from "../store/features/todo/todoSlice";
+
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 const Card = () => {
   const toggle = useSelector((state) => state.todos.toggleForm);
   const myTodos = useSelector((state) => state.todos.todos);
 
-  console.log(myTodos);
+  const dispatch = useDispatch();
 
   return (
     <div className="w-1/2 h-3/4 min-h-max bg-amber-100 shadow-2xl rounded-lg p-2 items-center flex flex-col space-y-10 justify-between">
@@ -20,18 +23,29 @@ const Card = () => {
         <div className="w-3/4">
           {toggle ? <AddTodoForm /> : <UpdateTodoForm />}
         </div>
-        <ul className="w-3/4">
-          {myTodos.map((todo) => (
-            <li className="mb-3" key={todo.id}>
-              <SingleTodoCard title={todo.title} />
-            </li>
-          ))}
-        </ul>
+        <div className="w-3/4">
+          {myTodos.length !== 0 ? (
+            <ul className="w-full max-h-72 overflow-y-scroll">
+              {myTodos.map((todo) => (
+                <li className="mb-3" key={todo.id}>
+                  <SingleTodoCard title={todo.title} id={todo.id} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="w-full flex flex-col items-center space-y-10">
+              <h1 className="text-2xl">Enter your first todo item</h1>
+              <BsFillCheckCircleFill size={50} className="text-green-500" />
+            </div>
+          )}
+        </div>
       </div>
       <button
         type="submit"
         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-10 rounded focus:outline-none focus:shadow-outline"
-        onClick={() => {}}
+        onClick={() => {
+          dispatch(deleteAllTodos());
+        }}
       >
         Clear
       </button>

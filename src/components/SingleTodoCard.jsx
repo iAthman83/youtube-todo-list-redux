@@ -3,7 +3,7 @@ import { BsTrashFill, BsCheckSquare } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
-import { toggleForm } from "../store/features/todo/todoSlice";
+import { toggleForm, deleteTodo } from "../store/features/todo/todoSlice";
 
 const SingleTodoCard = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +32,11 @@ const SingleTodoCard = (props) => {
           className="cursor-pointer text-yellow-700"
           size={20}
         />
-        <BsTrashFill className="cursor-pointer text-red-700" size={20} />
+        <BsTrashFill
+          onClick={() => dispatch(deleteTodo(props.id))}
+          className="cursor-pointer text-red-700"
+          size={20}
+        />
       </div>
     </div>
   );
