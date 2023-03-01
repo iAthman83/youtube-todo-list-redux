@@ -1,11 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  todos: [
-    { id: nanoid(), title: "Wake up" },
-    { id: nanoid(), title: "Drink coffee" },
-    { id: nanoid(), title: "Play tennis" },
-  ],
+  todos: [],
   toggleForm: true,
 };
 
