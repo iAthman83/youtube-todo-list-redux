@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../store/features/todo/todoSlice";
+import { todoAdded } from "../store/features/todo/todoSlice";
 
 const AddTodoForm = () => {
   const [input, setInput] = useState("");
@@ -9,16 +9,18 @@ const AddTodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input) {
+    if (/^\s*$/.test(input)) {
+      alert("Enter a todo");
+      setInput("");
+      return;
+    } else {
       dispatch(
-        addTodo({
+        todoAdded({
           id: nanoid(),
           title: input,
         })
       );
       setInput("");
-    } else {
-      alert("Enter a todo");
     }
   };
   return (
