@@ -3,12 +3,12 @@ import { BsTrashFill, BsCheckSquare } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
-import { toggleForm, deleteTodo } from "../store/features/todo/todoSlice";
+import { formToggled, todoDeleted } from "../store/features/todo/todoSlice";
 
 const SingleTodoCard = (props) => {
+  const [toggleComplete, setToggleComplete] = useState(false);
   const dispatch = useDispatch();
   // const toggleComplete = useSelector((state) => state.todos.toggleComplete);
-  const [toggleComplete, setToggleComplete] = useState(false);
 
   return (
     <div className="flex justify-between bg-red-100 py-2 rounded shadow">
@@ -28,12 +28,14 @@ const SingleTodoCard = (props) => {
           size={20}
         />
         <FaEdit
-          onClick={() => dispatch(toggleForm())}
+          onClick={() =>
+            dispatch(formToggled({ id: props.id, title: props.title }))
+          }
           className="cursor-pointer text-yellow-700"
           size={20}
         />
         <BsTrashFill
-          onClick={() => dispatch(deleteTodo(props.id))}
+          onClick={() => dispatch(todoDeleted(props.id))}
           className="cursor-pointer text-red-700"
           size={20}
         />
